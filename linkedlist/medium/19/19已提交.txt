@@ -1,0 +1,32 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+       ListNode *font,*dummy;
+	dummy = (ListNode*)malloc(sizeof(struct ListNode));
+	font = head;
+    dummy->next = head;
+	int length = 0;
+	int count = 0;
+	while (head != NULL) {
+		length++;
+		head = head->next;
+	}
+	head = font;
+	font = dummy;
+	while (count != length - n) {
+		count++;
+		font = font->next;
+	}
+	font->next = font->next->next;
+    return dummy->next;
+    }
+};
+//需要在链表前面添加一个空节点指向链表头，因为如果删除链表头的话，不加就不好办

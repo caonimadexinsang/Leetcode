@@ -1,0 +1,27 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode* phead = head;
+        if(head == NULL)
+            return phead;
+	int temp;
+        
+	while (head && head->next) {
+		temp = head->val;
+		head->val = head->next->val;
+		head->next->val = temp;
+        head = head->next->next;
+	}
+        return phead;
+    }
+};
+
+//注意while(head && head->next)是head写前面，因为如果head都为空，那么head->next就为悬空了，就是不正确的条件
