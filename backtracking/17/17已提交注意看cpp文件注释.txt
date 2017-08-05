@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<string> repeat(string digits, map<char, string> Map, vector<string> &result, int current,string moment) {
+	int length = digits.size();
+	string temp;
+	char digitpos = digits[current];
+	for (int i = 0;i < Map[digits[current]].size();i++){
+		moment += Map[digits[current]][i];
+		if (current < length - 1) {
+			current++;
+			repeat(digits, Map, result, current, moment);
+			current--;
+			moment.pop_back();
+		}
+		else {
+			result.push_back(moment);
+			printf("%s",moment);
+			moment.pop_back();
+		}
+		
+	}
+	return result;
+}
+    vector<string> letterCombinations(string digits) {
+        map<char, string> hashmap;
+	hashmap.insert(make_pair('2', "abc"));
+	hashmap.insert(make_pair('3', "def"));
+	hashmap.insert(make_pair('4',"ghi"));
+	hashmap.insert(make_pair('5',"jkl"));
+	hashmap.insert(make_pair('6', "mno"));
+	hashmap.insert(make_pair('7', "pqrs"));
+	hashmap.insert(make_pair('8', "tuv"));
+	hashmap.insert(make_pair('9', "wxyz"));
+	int current = 0;
+	vector<string> result;
+	string moment;
+	result = repeat(digits, hashmap, result, current, moment);
+    return result;
+    }
+};
+//下面函数由于是递归，每次递归参数虽然是传过去了，但是参数其实是一个数值的copy，新的递归函数会另占用一个新的空间来
+//存放这个数值，所以每一个子递归函数执行完返回给主递归函数的时候，数值都是主递归函数之前的而不是子递归改变后的
+//子递归改变后的参数存放在子递归的新的内存中，所以如果想要递归改变一个向量，那么应该传该向量的地址
+//especially   vector<string> &result
