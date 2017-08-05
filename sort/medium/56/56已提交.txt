@@ -1,0 +1,39 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    static int Comstart(Interval r1,Interval r2) {
+	return r1.start < r2.start;
+}
+    vector<Interval> merge(vector<Interval>& intervals) {
+        vector<Interval> result;
+	    Interval curr;
+	    sort(intervals.begin(), intervals.end(),Comstart);
+	    if (intervals.size() <= 1) {
+		//result.push_back(intervals[0]);
+		return intervals;
+	} 
+	    curr = intervals[0];
+	    int length = intervals.size();
+	    for (int i = 1;i < intervals.size();i++) {
+		if (curr.end < intervals[i].start) {
+			result.push_back(curr);
+			curr = intervals[i];
+		}
+		else {
+			int maxend = max(curr.end,intervals[i].end);
+			curr.end = maxend;
+		}		
+	}
+	result.push_back(curr);
+	return result;
+    }
+};
+//注意这是vector套模板的典型用法，第一次遇到
