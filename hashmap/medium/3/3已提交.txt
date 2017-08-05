@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int length = s.size();
+	map<char, int> hashmap;
+	int Max = 0;
+    int t = 0;
+    if(length == 1){
+        Max = 1;
+        return Max;
+    }
+        while (t <= length) {
+	for (int i = t;i < length;i++) {
+		auto iter = hashmap.begin();
+		iter = hashmap.find(s[i]);
+		if (iter == hashmap.end()) {
+			//hashmap.insert(pair<char,int>(s[i],i));
+			hashmap.insert(make_pair(s[i],i));
+		}
+		else {
+			int len = hashmap.size();
+			Max = max(Max,len);
+			hashmap.clear();
+            break;
+		}
+	}
+            t++;
+ }
+        return Max;
+    }
+};
+//注意，while大循环的意思就是以string的每个元素为开始查找一个不重复的串，所以，在每次查找的时候，一旦遇到重复的字母，马上返回哈希表长度并break，这就是以
+这个字母为开始的不重复子串的最大长度，要找下一个就要从这个字母下一个字母开始作为开头了，就又要在while的地方向后一位了

@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+	vector<vector<int>> result;
+	map<int, vector<int>> hasmap;
+	vector<int> med;
+	int length = nums.size();
+	int begin, end;
+	int res;
+	int count = 0;
+	sort(nums.begin(),nums.end());
+	for (int i = 0;i < length - 3;i++) {
+		for (int j = i + 1;j < length - 2;j++) {
+            end = length - 1;
+			begin = j + 1;
+			while(begin < end) {
+			res = nums[i] + nums[j] + nums[begin] + nums[end];
+			if (res == target) {
+				hasmap[count].push_back(nums[i]);
+				hasmap[count].push_back(nums[j]);
+				hasmap[count].push_back(nums[begin]);
+				hasmap[count].push_back(nums[end]);
+				count++;
+                while(nums[begin] == nums[begin + 1]){
+				begin++;
+                }
+				begin++;
+			}
+			else if (res < target)
+				begin++;
+			else
+				end--;
+		 }
+            while(nums[j] == nums[j + 1])
+                j++;
+		}
+        while(nums[i] == nums[i + 1])
+            i++;
+	}
+	for (map<int,vector<int>>::iterator iter = hasmap.begin();iter != hasmap.end();iter++) {
+		result.push_back(iter->second);
+	}
+        return result;
+    }
+};
