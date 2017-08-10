@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+	vector<int> result;
+	int depth = 0;
+
+public:
+    void DFS(TreeNode* root, int curDepth) {
+	if (!root)
+		return;
+	if (depth < curDepth) {
+		depth++;
+		result.push_back(root->val);
+	}
+	DFS(root->right,curDepth + 1);
+	DFS(root->left,curDepth + 1);
+}
+    vector<int> rightSideView(TreeNode* root) {
+        DFS(root,1);
+        return result;
+    }
+};
