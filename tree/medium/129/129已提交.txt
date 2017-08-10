@@ -1,0 +1,31 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void TreeSum(TreeNode *root,int res,int &Res) {
+        if(root != NULL){
+	res = res * 10 + root->val;
+		if (root->left == NULL && root->right == NULL) {
+	//		res = res * 10 + root->val;
+			Res += res;
+		}
+            else{
+                TreeSum(root->left, res, Res);
+		        TreeSum(root->right, res, Res);
+            }
+    }
+}
+    int sumNumbers(TreeNode* root) {
+        	int res = 0;
+	int Res = 0;
+	TreeSum(root,res,Res);
+        return Res;
+    }
+};
