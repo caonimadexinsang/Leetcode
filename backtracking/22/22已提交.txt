@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        string str;
+        vector<string> res;
+	    Build(n,n,res,str);
+        return res;
+    }
+    void Build(int left, int right,vector<string>& result,string str) {
+	if (left == 0 && right == 0) {
+		result.push_back(str);
+		return;
+	}
+	if (left != 0) {
+		Build(left - 1,right,result,str+"(");
+	}
+	if (right != 0 && left < right) {
+		Build(left, right - 1,result,str+")");
+	}
+}
+};
+//注意：build函数如果返回类型是vector<string>，在build函数内部掉调用build函数的时候就必须把这个函数赋值给一个东西，不能直接想现在这样调用，因为那是要求有返回值的。否则会引起
+错误，加的string单字是用""双引号括起来的。
