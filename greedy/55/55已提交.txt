@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int max = -1;
+        int length = nums.size();
+        if(length <= 0)//ÖØÒª
+            return false;
+	for (int i = 0;i < length;i++) {
+		if (nums[i] > max)
+			max = nums[i];
+		if (max >= length - i - 1){//>=·ûºÅ×¢Òâ£¡£¡£¡£¡£¡£¡£¡£¡£¡
+			return true;
+		}
+		if (max == 0) {
+			return false;
+		}
+		max--;
+	}
+    }
+};
