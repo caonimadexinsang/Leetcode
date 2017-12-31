@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        vector<vector<int>> temps;
+	vector<int> temp(2);////////////////////////////////////////
+	int height = matrix.size();
+	int width = matrix[0].size();
+	for (int i = 0;i < height;i++) {
+		for (int j = 0;j < width;j++) {
+			if (matrix[i][j] == 0) {
+				temp[0] = i;
+				temp[1] = j;
+				temps.push_back(temp);
+			}
+		}
+	}
+	for (int i = 0;i < temps.size();i++) {
+		reset(matrix, temps[i]);///////////////////////
+	}
+	for (int i = 0;i < height;i++) {
+		for (int j = 0;j < width;j++) {
+			cout << matrix[i][j];
+		}
+	}
+    }
+    void reset(vector<vector<int>> &matrix, vector<int> temp) {//////////////////////////
+	for (int i = 0;i < matrix.size();i++) {
+		matrix[i][temp[1]] = 0;
+	}
+	for (int j = 0;j < matrix[0].size();j++) {
+		matrix[temp[0]][j] = 0;
+	}
+}
+};
+//注意vector的各种用发
