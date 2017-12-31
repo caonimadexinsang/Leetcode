@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int c = 1;
+        int length = digits.size();
+        int sum;
+        for(int i = length - 1;i >= 0;i--){
+            sum = c + digits[i];
+            if(sum > 9){
+                c = 1;
+                digits[i] = sum % 10;
+            }
+            else{
+                c = 0;
+                digits[i] = sum;
+            }
+        }
+        if(c == 1)
+            digits.insert(digits.begin(),1);
+        return digits;
+    }
+};
