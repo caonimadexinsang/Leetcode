@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int length = nums.size();
+        if(length == 0)
+            return false;
+        int left = 0;
+        int right = length - 1;
+       while (left <= right) {
+		int medium = (left + right) / 2;
+		if (target == nums[medium])
+			return true;
+		if (nums[left] < nums[medium]) {
+			if (target <= nums[medium] && target >= nums[left])
+				right = medium - 1;
+			else
+				left = medium + 1;
+		}
+		else if (nums[left] > nums[medium]) {
+			if (target > nums[right]) {
+				right = medium - 1;
+			}
+			else if (target > nums[medium])
+				left = medium + 1;
+			else if (target < nums[medium])
+				right = medium - 1;
+		}
+		else
+			left++;///注意，如果最左边的数等于medium的数，就不好分区，左边数向后加一
+	}
+        return false;
+    }
+};
